@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+
+  mysqldb:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=envelo
+      - MYSQL_DATABASE=envelo_task
+      - MYSQL_USER=envelo
+      - MYSQL_PASSWORD=envelo
+    volumes:
+      - /data/mysql
+    networks:
+      - spring-mysql
+    ports:
+      - 3306:3306
+
+  envelo-task:
+    image: envelo-task
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: on-failure
+    environment:
+      - DATABASE_HOST=mysqldb
+      - DATABASE_NAME=envelo_task
+      - DATABASE_USER=envelo
+      - DATABASE_PORT=3306
+    depends_on:
+      - mysqldb
+    volumes:
+      - /data/spring-boot-app
+    networks:
+      - spring-mysql
+    ports:
+      - 8080:8080
+
+networks:
+  spring-mysql:

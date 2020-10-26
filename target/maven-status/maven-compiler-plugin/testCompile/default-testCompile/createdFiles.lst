@@ -1,0 +1,4 @@
+com\envelo\task\TaskApplicationTests.class
+com\envelo\task\service\serviceImpl\ActionServiceImplTest.class
+com\envelo\task\service\serviceImpl\CurrencyServiceImplTest.class
+com\envelo\task\service\serviceImpl\RateServiceImplTest.class
